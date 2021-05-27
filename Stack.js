@@ -78,7 +78,7 @@ Cards.push(color,number);
 cardsArray.push([color,number])}
 
 }
-console.log(` ${Cards.displayData()}`);
+Cards.displayData()
 
 
 let player1=[]
@@ -86,7 +86,7 @@ let player2=[]
 
 
 
-let i =0;
+let i =1;
 while(i<=5)
 {
 
