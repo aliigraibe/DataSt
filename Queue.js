@@ -1,89 +1,74 @@
-
-
 class Node {
-    constructor(GroupSize, nextNode = null) {
-      this.GroupSize = GroupSize;
-      this.nextNode = nextNode;
-    }
+  constructor(groupSize, nextNode = null) {
+    this.groupSize = groupSize;
+    this.nextNode = nextNode;
+  }
 }
-  class Queue {
-    constructor(limit = 10,frontNode,backNode,size,waitingTime) {
+class Queue {
+  constructor(limit = 10) {
+    this.frontNode = null;
+    this.backNode = null;
+    this.limit = limit;
+    this.size = 0;
+    this.waitingTime = 0;
+  }
+
+  isEmpty = () => this.size === 0;
+
+  isFull = () => this.size === this.limit;
+  peek = () => {
+    if (this.isEmpty()) console.log("Empty queue!");
+    else return this.frontNode.groupSize;
+  };
+
+
+
+enqueue = (groupSize) => {
+  if (this.isFull()) console.log("There's no place for you here");
+  else {
+    const newNode = new Node(groupSize);
+    if (this.isEmpty()) {
+      this.frontNode = newNode;
+      this.backNode = newNode;
+      this.waitingTime += groupSize * 0.5;
+    } else {
+      this.backNode.nextNode = newNode;
+      this.backNode = newNode;
+      this.waitingTime += groupSize * 0.5;
+    }
+    this.size++;
+  }
+};
+dequeue = () => {
+  if (this.isEmpty()) console.log("no one is waiting");
+  else {
+    let removedNode = this.frontNode;
+    if (this.size === 1) {
       this.frontNode = null;
       this.backNode = null;
-      this.limit = limit;
-      this.size = 0;
-      this.waitingTime=0;
+      this.waitingTime = 0;
+    } else {
+      this.frontNode = removedNode.nextNode;
+      this.waitingTime -= removedNode.groupSize * 0.5;
     }
-  
-    isEmpty = () => this.size === 0;
-  
-    isFull = () => this.size === this.limit;
-  
-    add = (GroupSize) => {
-  
-      const newNode = new Node(GroupSize)
-      if(this.isEmpty())
-      this.front=newNode
+    this.size--;
 
-      else {
-        this.backNode.nextNode=newNode;
-      this.backNode=newNode;
-      this.size+=1;
-      this.waitingTime += GroupSize *0.5;
-    }
-  }
-    
-  
-    enqueue = (GroupSize) => {
-      if (this.isFull()) 
-      
-      console.log("There's no place for you here");
-      else {
-        let numberofpeople =GroupSize;
-        while(numberofpeople>12)
-        {
-            this.add(2)
-            numberofpeople-=12; 
-        }
-        this.add(numberofpeople);
-              }
-            
-            };
-            
-dequeue = () => {
-              if (this.isEmpty())
-            console.log('no one is waiting')
-           
-           else if (this.size===1) {
-             let removedNode= this.frontNode;
-             this.frontNode=null
-             this.backNode=null
-             this.waitingTime=0
-             this.size=0
-             return removedNode.GroupSize
-                   }
-                     else{
-   
-                       let removedNode= this.frontNode
-                       this.frontNode=removedNode.nextNode
-                       this.size--
-                       this.waitingTime-=removedNode.GroupSize*0.5
-                       return  removedNode.GroupSize;
-                     }
-          };
-        }
+    return removedNode.groupSize;
+  }}
+};
 
-                const rest = new Queue()
-                console.log(rest.waitingTime)
+const rest = new Queue();
+console.log(rest.waitingTime);
 
-                rest.add(4)
-                rest.add(4)
-                rest.add(4)
-                console.log(rest.waitingTime)
-                rest.enqueue(6)
-                console.log(rest.waitingTime)
-                rest.enqueue(17)
-                rest.enqueue(3)
-                console.log(rest.waitingTime)
-                console.log(rest.dequeue())
-                console.log(rest.waitingTime)
+rest.enqueue(4);
+rest.enqueue(4);
+rest.enqueue(4);
+console.log(rest.waitingTime);
+rest.enqueue(6);
+console.log(rest.waitingTime);
+rest.enqueue(17);
+rest.enqueue(3);
+console.log(rest.dequeue());
+
+console.log(rest.waitingTime);
+
