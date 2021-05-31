@@ -1,22 +1,34 @@
 const prompt = require('prompt-sync')({sigint: true});
 class TreeNode {
-  constructor(name) {
-    this.name = name;
+  constructor(data) {
+    this.data = data;
     this.children = [];
   }
 
 
-   traverse = (node) => {
+   traverse = () => {
     let nodes = [this];
     while (nodes.length > 0) {
     let currentNode = nodes.pop();
-    console.log(currentNode.data); 
+    console.log(currentNode.name); 
     nodes = [...nodes, ...currentNode.children];
     }
+  }
+
+  
+  addChild = (child) => {
+    if (this.children.length<2) 
+    {      
+    this.children.push(child);  
+    console.log(`child ${child.name}`)    
+   
+  }       
+       else  console.log('trees full');
+    
   };
       parentSearch = (child) => {
         let nodes = [this];
-        while (nodes.length > 2) {
+        while (nodes.length > 0) {
           let currentNode = nodes.pop();
           if(child.name.split(" ")[1]===currentNode.name.split(" ")[0])
           {
@@ -24,21 +36,10 @@ class TreeNode {
           }
            nodes = [...nodes, ...currentNode.children];   
         }
-            return 'parent  not exist'
-          };
-
-          add = (child) => {
-            if (this.children.length<2) 
-            {      
-            this.children.push(child);  
-            console.log(`child ${child.name}`)    
-           
-          }       
-               else return console.log('trees full');
-            
+            return 'parent not exist'
           }
-};
-
+        }
+    
 
 let childName= prompt('enter child name  (done if finished) ');
 const newTree = new TreeNode("Family");
@@ -47,13 +48,11 @@ let child = new TreeNode(childName);
 let parent = newTree.parentSearch(child)
 if(parent !==  "parent not exist"){
 
+parent.addChild(child);
 }
 else console.log(parent)
 
 childName= prompt('enter child name  (done if finished) ')
-newTree.add(child)
-
 
 }
-
 newTree.traverse();
