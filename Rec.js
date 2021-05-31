@@ -10,9 +10,6 @@ const req = (numbers) => {
 }
 
 
-const Flatiin = (num) => numbers += numbers
 
 
-
-
-console.log(Flatiin(numbers.flat()))
+console.log((numbers.flat()))
