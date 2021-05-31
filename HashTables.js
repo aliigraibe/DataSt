@@ -48,16 +48,16 @@ class HashTable{
       };  
       insert = (student) => {
         let classRoom= this.hash(student.score)
-        if(this.classes[classRoom].length <  this.classSize) 
+        if(this.classes[classRoom.length] <  this.classSize) 
         this.classes[classRoom].push(student)
         else console.log('no more room')
       }
         }
 
-    const size = prompt('how many student in class  ');
-    const tabel = new HashTable(size);
-    students.forEach((s) =>  tabel.insert(s));
-    console.log(tabel.classes);
+    const size = prompt('how many student in class  ')
+    const tabel = new HashTable(size)
+    students.forEach((s) =>  tabel.insert(s))
+    console.log(tabel.classes)
 
 
 
