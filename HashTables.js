@@ -43,12 +43,12 @@ class HashTable{
             return "C"
             else if  (score >=60 ) 
            return "D"
-          else return 'oother'
+          else return 'Other'
 
       };  
       insert = (student) => {
         let classRoom= this.hash(student.score)
-        if(this.classes[classRoom.length] <  this.classSize) 
+        if(this.classes[classRoom].length <  this.classSize) 
         this.classes[classRoom].push(student)
         else console.log('no more room')
       }
